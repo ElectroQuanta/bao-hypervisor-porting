@@ -27,7 +27,7 @@
 #define RAM2_ADDR 0x880000000ULL
 #define RAM2_SIZE 0x80000000U
 
-#define CPU_NUM 1 /**< Dual-core A72 processor */
+#define CPU_NUM 2 /**< Dual-core A72 processor */
 
 #define UART0_ADDR 0x2800000 /**< main_uart0: serial@2800000 (main.dtsi) */
 
