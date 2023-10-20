@@ -22,10 +22,19 @@
 
 #include <platform.h>
 
+#define RAM1_ADDR 0x80000000U
+#define RAM1_SIZE 0x80000000U
+#define RAM2_ADDR 0x880000000ULL
+#define RAM2_SIZE 0x80000000U
+
+#define CPU_NUM 1 /**< Dual-core A72 processor */
+
+#define UART0_ADDR 0x2800000 /**< main_uart0: serial@2800000 (main.dtsi) */
+
 
 struct platform platform = {
-    .cpu_num = 2, /**< Dual-core A72 processor */
-    .region_num = 1,
+    .cpu_num = CPU_NUM, 
+    .region_num = 2,
     .regions =  (struct mem_region[]) {
         // // SRAM
         // {   /**< msmc_ram: sram@70000000 */
@@ -40,14 +49,18 @@ struct platform platform = {
         
         // 4GB RAM
         {
-            .base = 0x80000000,
-            .size = 0x80000000ULL * 2
+            .base = RAM1_ADDR,
+            .size = RAM1_SIZE
+        },
+        {
+            .base = RAM2_ADDR,
+            .size = RAM2_SIZE
         }
         // Reserved memory
     },
 
     .console = {
-        .base = 0x2800000 /**< main_uart0: serial@2800000 (main.dtsi) */
+        .base = UART0_ADDR
     },
 
     .arch = {
@@ -60,9 +73,9 @@ struct platform platform = {
             .maintenance_id = 9
         },
 
-        .smmu = { /**< smmu0: iommu@36600000 (main.dtsi) */
-            .base = 0x36600000,
-            .interrupt_id = 772
-        },
+//        .smmu = { /**< smmu0: iommu@36600000 (main.dtsi) */
+//            .base = 0x36600000,
+//            .interrupt_id = 772
+//        },
     }
 };
