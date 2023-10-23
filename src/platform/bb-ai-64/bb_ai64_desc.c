@@ -22,6 +22,9 @@
 
 #include <platform.h>
 
+#define GIC_GIC_PPI 9 /**< Interrupt for the GIC500 controller (in PPI) */
+#define GIC_INTERRUPT (GIC_PPI_VAL(GIC_GIC_PPI))
+
 
 struct platform platform = {
     .cpu_num = 1, /**< Dual-core A72 processor */
@@ -51,13 +54,29 @@ struct platform platform = {
     },
 
     .arch = {
+// gic500: interrupt-controller@1800000 {
+// 	compatible = "arm,gic-v3";
+// 	#address-cells = <2>;
+// 	#size-cells = <2>;
+// 	ranges;
+// 	#interrupt-cells = <3>;
+// 	interrupt-controller;
+// 	reg = <0x00 0x01800000 0x00 0x10000>,	/* GICD */
+// 	      <0x00 0x01900000 0x00 0x100000>,	/* GICR */
+// 	      <0x00 0x6f000000 0x00 0x2000>,	/* GICC */
+// 	      <0x00 0x6f010000 0x00 0x1000>,	/* GICH */
+// 	      <0x00 0x6f020000 0x00 0x2000>;	/* GICV */
+// 	
+// 	/* vcpumntirq: virtual CPU interface maintenance interrupt */
+// 	interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
+// }
         .gic = { /**< gic500: interrupt-controller@1800000 (main.dtsi) */
             .gicd_addr = 0x01800000,
             .gicr_addr = 0x01900000,
             .gicc_addr = 0x6f000000,
             .gich_addr = 0x6f010000,
             .gicv_addr = 0x6f020000,
-            .maintenance_id = 9
+            .maintenance_id = GIC_INTERRUPT
         },
     }
 };
