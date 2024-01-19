@@ -10,6 +10,9 @@ struct platform platform = {
     .region_num = 2,
     .regions =  (struct mem_region[]) {
         {
+
+// /* First 128KB is for PSCI ATF. */
+// /memreserve/ 0x80000000 0x00020000;
             .base = 0x80020000,
             .size = 0x80000000 - 0x20000 // 2 GiB - 128 KiB (reserved for ATF) 
         },
