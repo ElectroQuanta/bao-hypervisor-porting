@@ -28,8 +28,8 @@
 //		device_type = "memory";
 //		reg = <0x00 0x40000000 0x00 0x80000000>;
 //	};
-#define RAM1_ADDR 0x40000000U
-#define RAM1_SIZE 0x80000000U
+#define RAM1_ADDR 0x40000000
+#define RAM1_SIZE 0x80000000
 
 #define CPU_NUM 4 /**< Quad-core A52 processor */
 
@@ -97,7 +97,7 @@ struct platform platform = {
     .arch = {
         .clusters =  {
             .num = 1,
-            .core_num = (size_t[]) {4}
+            .core_num = (size_t[]) {CPU_NUM}
         },
 
 // @imx8mn.dtsi        
