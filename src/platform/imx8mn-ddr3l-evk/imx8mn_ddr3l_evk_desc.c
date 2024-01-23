@@ -27,8 +27,8 @@
 //		reg = <0x00 0x40000000 0x00 0x80000000>;
 //	};
 #define RAM1_ADDR 0x40000000
-#define RAM1_SIZE_2G 0x80000000 /**< U-boot device tree */
-#define RAM1_SIZE_1G 0x40000000 /**< DDR3L Datasheet (1GB) */
+#define RAM1_SIZE_2GB 0x80000000 /**< U-boot device tree */
+#define RAM1_SIZE_1GB 0x40000000 /**< DDR3L Datasheet (1GB) */
 
 #define CPU_NUM 4 /**< Quad-core A53 processor */
 
