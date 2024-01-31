@@ -81,6 +81,9 @@ struct platform platform = {
     .cpu_num = CPU_NUM,
     .region_num = 1,
 
+    .cpu_master_fixed = 1,
+    .cpu_master = (cpuid_t) 0,
+
     .regions =  (struct mem_region[]) {
         // 3GB RAM
         {
