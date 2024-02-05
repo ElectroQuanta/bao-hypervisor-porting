@@ -103,7 +103,7 @@ uint32_t uart_getc(volatile struct Pl011_Uart_hw * ptr_uart){
 }
 
 
-void uart_putc(volatile struct Pl011_Uart_hw * ptr_uart,int8_t c){
+void uart_putc(volatile struct Pl011_Uart_hw * ptr_uart, const char c){
 
 	//wait until txFIFO is not full
 	while(ptr_uart->flag & UART_FR_TXFF);
