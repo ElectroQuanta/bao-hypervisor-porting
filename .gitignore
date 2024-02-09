@@ -12,3 +12,4 @@ configs/*
 !configs/null/
 
 *~undo-tree~
+compile_commands.json
