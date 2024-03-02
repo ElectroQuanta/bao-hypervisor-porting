@@ -26,9 +26,17 @@ void cpu_arch_profile_init(cpuid_t cpuid, paddr_t load_addr) {
 }
 
 void cpu_arch_profile_idle() {
-
+#ifdef PLATFORM_IMX8MN_DDR3L_EVK
+    /**
+     * Force CPU to go into standby through error management
+     * below, because IMX powerdown prevents cores from being
+     * awaken by Bao
+     */
+    int64_t err = PSCI_E_NOT_SUPPORTED;
+#else
     int64_t err = psci_power_down(PSCI_WAKEUP_IDLE);
-    if(err) {
+#endif
+    if (err) {
         switch (err) {
             case PSCI_E_NOT_SUPPORTED:
                 /**

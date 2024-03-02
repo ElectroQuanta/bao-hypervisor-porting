@@ -12,4 +12,8 @@ configs/*
 !configs/null/
 
 *~undo-tree~
+<<<<<<< HEAD
 .vscode/*
+=======
+compile_commands.json
+>>>>>>> 467b2e2e910dc2d9a6866eb5e2d0c578cb03d9bd
