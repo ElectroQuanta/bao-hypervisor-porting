@@ -17,7 +17,8 @@
 #define GIC_SPI_VAL(x) ADD_NRS(x, 32)
 
 
-#include <drivers/imx_uart.h>
+//#include <drivers/imx_uart.h>
+#include <drivers/pl011_uart.h>
 //#include <drivers/nxp_uart.h>
 
 #endif
