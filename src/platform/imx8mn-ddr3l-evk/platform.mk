@@ -9,8 +9,8 @@ CPU:=cortex-a53
 GIC_VERSION:=GICV3
 #BBAI64_MEM_GB:=4
 
-#drivers = imx_uart
-drivers = pl011_uart
+drivers = imx_uart
+#drivers = pl011_uart
 #drivers = nxp_uart
 
 platform_description:=imx8mn_ddr3l_evk_desc.c
