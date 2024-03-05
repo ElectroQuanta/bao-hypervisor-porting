@@ -29,6 +29,7 @@
 #define RAM1_ADDR 0x40200000
 #define RAM1_SIZE_2GB 0x80000000 /**< U-boot device tree */
 #define RAM1_SIZE_1GB 0x40000000 /**< DDR3L Datasheet (1GB) */
+#define RAM1_SIZE_750MB 0x30000000 /**< DDR3L Datasheet (1GB) */
 
 #define CPU_NUM 4 /**< Quad-core A53 processor */
 
@@ -85,7 +86,7 @@ struct platform platform = {
         // 3GB RAM
         {
             .base = RAM1_ADDR,
-            .size = RAM1_SIZE_1GB
+            .size = RAM1_SIZE_750MB
         }
         // Reserved memory
     },
