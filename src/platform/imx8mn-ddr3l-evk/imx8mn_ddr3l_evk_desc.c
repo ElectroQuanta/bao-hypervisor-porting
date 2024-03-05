@@ -26,10 +26,12 @@
 //		device_type = "memory";
 //		reg = <0x00 0x40000000 0x00 0x80000000>;
 //	};
-#define RAM1_ADDR 0x40200000
+#define RAM1_ADDR_DTB 0x40000000
+#define RAM1_ADDR     0x40200000
 #define RAM1_SIZE_2GB 0x80000000 /**< U-boot device tree */
 #define RAM1_SIZE_1GB 0x40000000 /**< DDR3L Datasheet (1GB) */
 #define RAM1_SIZE_750MB 0x30000000 /**< DDR3L Datasheet (1GB) */
+#define RAM1_SIZE ( (size_t(RAM1_ADDR)) - (size_t(RAM1_ADDR_DTB)) ) 
 
 #define CPU_NUM 4 /**< Quad-core A53 processor */
 
@@ -86,7 +88,7 @@ struct platform platform = {
         // 3GB RAM
         {
             .base = RAM1_ADDR,
-            .size = RAM1_SIZE_750MB
+            .size = RAM1_SIZE
         }
         // Reserved memory
     },
