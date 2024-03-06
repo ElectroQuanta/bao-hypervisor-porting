@@ -91,8 +91,28 @@ static inline void syscall_handler(unsigned long iss, unsigned long far,
             break;
         default:
             WARNING("Unknown system call fid 0x%x", fid);
-    }
+            struct smc_res res;
+            smc_call( cpu()->vcpu->regs.x[0], 
+                      cpu()->vcpu->regs.x[1],
+                      cpu()->vcpu->regs.x[2],
+                      cpu()->vcpu->regs.x[3],
+                      &res
+                );
+            cpu()->vcpu->regs.x[0] = res.x0;
+            cpu()->vcpu->regs.x[1] = res.x1;
+            cpu()->vcpu->regs.x[2] = res.x2;
+            cpu()->vcpu->regs.x[3] = res.x3;
+//  smc_call(unsigned long x0, unsigned long x2, unsigned long x2,
+//                      unsigned long x4, struct smc_res *res)
 
+// struct smc_res {
+//     unsigned long x0;
+//     unsigned long x1;
+//     unsigned long x2;
+//     unsigned long x3;
+// };
+            ret = res.x0;
+    }
     vcpu_writereg(cpu()->vcpu, 0, ret);
 }
 
