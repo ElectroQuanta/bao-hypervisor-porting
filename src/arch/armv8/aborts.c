@@ -11,6 +11,7 @@
 #include <emul.h>
 #include <config.h>
 #include <hypercall.h>
+#include <arch/smc.h>
 
 typedef void (*abort_handler_t)(unsigned long, unsigned long, unsigned long, unsigned long);
 
