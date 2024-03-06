@@ -64,16 +64,15 @@
 
 
 /**< GIC: imx8mn.dtsi */
-//    gic: interrupt-controller@38800000 {
-//            compatible = "arm,gic-v3";
-//            reg = <0x38800000 0x10000>,
-//            <0x38880000 0xc0000>;
-//#interrupt-cells = <3>;
-//            interrupt-controller;
-//            interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
-//        };
-// 	
-// }
+// interrupt-controller@38800000 {
+//     compatible = "arm,gic-v3";
+//     reg = <0x38800000 0x10000 0x38880000 0xc0000>;
+//     #interrupt-cells = <0x03>;
+//     interrupt-controller;
+//     interrupts = <0x01 0x09 0x04>;
+// 0x01 (SPI); 0x00 (PPI)
+// 0x09 (INT_ID)
+// 0x04 (flags)
 #define GICD_ADDR 0x38800000
 #define GICR_ADDR 0x38880000
 #define GIC_GIC_PPI 9 /**< Interrupt for the GIC500 controller (in PPI) */
@@ -105,10 +104,11 @@ struct platform platform = {
         .gic = {
             .gicd_addr = GICD_ADDR,
             .gicr_addr = GICR_ADDR,
-            .gicc_addr = 0x6f000000, /**< Dont care (v3) */
-            .gich_addr = 0x6f010000, /**< Dont care (v3) */
-            .gicv_addr = 0x6f020000, /**< Dont care (v3) */
-            .maintenance_id = GIC_INTERRUPT
+            // .gicc_addr = 0x6f000000, /**< Dont care (v3) */
+            // .gich_addr = 0x6f010000, /**< Dont care (v3) */
+            // .gicv_addr = 0x6f020000, /**< Dont care (v3) */
+            //.maintenance_id = GIC_INTERRUPT
+            .maintenance_id = ( 0x09UL + 16UL )
         },
     }
 };
