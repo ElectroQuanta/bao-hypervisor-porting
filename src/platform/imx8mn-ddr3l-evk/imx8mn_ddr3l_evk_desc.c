@@ -27,11 +27,14 @@
 //		reg = <0x00 0x40000000 0x00 0x80000000>;
 //	};
 #define RAM1_ADDR_DTB 0x40000000UL
-#define RAM1_ADDR     0x40200000UL
+#define RAM1_ADDR_UBOOT     0x40200000UL
+#define RAM1_ADDR_CUR     0x50000000UL
+#define RAM1_ADDR RAM1_ADDR_CUR
 #define RAM1_SIZE_2GB 0x80000000UL /**< U-boot device tree */
 #define RAM1_SIZE_1GB 0x40000000UL /**< DDR3L Datasheet (1GB) */
 #define RAM1_SIZE_750MB 0x30000000UL /**< DDR3L Datasheet (1GB) */
-#define RAM1_SIZE ( RAM1_SIZE_1GB - (RAM1_ADDR - RAM1_ADDR_DTB )) 
+//#define RAM1_SIZE ( RAM1_SIZE_1GB - (RAM1_ADDR - RAM1_ADDR_DTB )) 
+#define RAM1_SIZE RAM1_SIZE_750MB 
 
 #define CPU_NUM 4 /**< Quad-core A53 processor */
 
