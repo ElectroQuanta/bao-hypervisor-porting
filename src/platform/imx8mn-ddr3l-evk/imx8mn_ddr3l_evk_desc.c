@@ -65,7 +65,7 @@
 //chosen {
 //	stdout-path = &uart2;
 //};
-#define UART2_ADDR 0x30890000
+#define UART2_ADDR 0x30890000UL
 
 
 /**< GIC: imx8mn.dtsi */
@@ -78,8 +78,8 @@
 // 0x01 (SPI); 0x00 (PPI)
 // 0x09 (INT_ID)
 // 0x04 (flags)
-#define GICD_ADDR 0x38800000
-#define GICR_ADDR 0x38880000
+#define GICD_ADDR 0x38800000UL
+#define GICR_ADDR 0x38880000UL
 #define GIC_GIC_PPI 9 /**< Interrupt for the GIC500 controller (in PPI) */
 #define GIC_INTERRUPT (GIC_PPI_VAL(GIC_GIC_PPI))
 
