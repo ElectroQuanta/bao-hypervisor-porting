@@ -112,8 +112,8 @@ struct platform platform = {
             // .gicc_addr = 0x6f000000, /**< Dont care (v3) */
             // .gich_addr = 0x6f010000, /**< Dont care (v3) */
             // .gicv_addr = 0x6f020000, /**< Dont care (v3) */
-            //.maintenance_id = GIC_INTERRUPT
-            .maintenance_id = ( 0x09UL + 16UL )
+            .maintenance_id = GIC_INTERRUPT
+            //.maintenance_id = ( 0x09UL + 16UL )
         },
     }
 };
