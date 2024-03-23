@@ -38,8 +38,8 @@
 
 /// RAM address and size calculation
 //#define RAM1_ADDR RAM1_ADDR_DTB
-#define RAM1_ADDR RAM1_ADDR_UBOOT
-//#define RAM1_ADDR RAM1_ADDR_CUR
+//#define RAM1_ADDR RAM1_ADDR_UBOOT
+#define RAM1_ADDR RAM1_ADDR_CUR
 //#define RAM1_SIZE_ORIG RAM1_SIZE_2GB
 #define RAM1_SIZE_ORIG RAM1_SIZE_1GB
 
