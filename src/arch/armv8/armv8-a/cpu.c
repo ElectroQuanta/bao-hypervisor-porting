@@ -27,6 +27,8 @@ void cpu_arch_profile_init(cpuid_t cpuid, paddr_t load_addr)
     }
 }
 
+void cpu_arch_profile_idle()
+{
 #ifdef PLATFORM_IMX8MN_DDR3L_EVK
     /**
      * Force CPU to go into standby through error management
@@ -37,9 +39,6 @@ void cpu_arch_profile_init(cpuid_t cpuid, paddr_t load_addr)
 #else
     int64_t err = psci_power_down(PSCI_WAKEUP_IDLE);
 #endif
-void cpu_arch_profile_idle()
-{
-    int64_t err = psci_power_down(PSCI_WAKEUP_IDLE);
     if (err) {
         switch (err) {
             case PSCI_E_NOT_SUPPORTED:
