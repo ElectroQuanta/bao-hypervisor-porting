@@ -27,7 +27,6 @@ void cpu_arch_profile_init(cpuid_t cpuid, paddr_t load_addr)
     }
 }
 
-void cpu_arch_profile_idle() {
 #ifdef PLATFORM_IMX8MN_DDR3L_EVK
     /**
      * Force CPU to go into standby through error management
