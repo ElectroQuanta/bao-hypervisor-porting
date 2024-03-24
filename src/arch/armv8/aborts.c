@@ -17,9 +17,9 @@ typedef void (*abort_handler_t)(unsigned long, unsigned long, unsigned long, uns
 
 void aborts_data_lower(unsigned long iss, unsigned long far, unsigned long il, unsigned long ec)
 {
-  // if (!(iss & ESR_ISS_DA_ISV_BIT) || (iss & ESR_ISS_DA_FnV_BIT)) {
-  //     ERROR("no information to handle data abort (0x%x)", far);
-  // }
+    if (!(iss & ESR_ISS_DA_ISV_BIT) || (iss & ESR_ISS_DA_FnV_BIT)) {
+        ERROR("no information to handle data abort (0x%x)", far);
+    }
 
     unsigned long DSFC = bit64_extract(iss, ESR_ISS_DA_DSFC_OFF, ESR_ISS_DA_DSFC_LEN) & (0xf << 2);
 
@@ -47,7 +47,7 @@ void aborts_data_lower(unsigned long iss, unsigned long far, unsigned long il, u
             ERROR("data abort emulation failed (0x%x)", far);
         }
     } else {
-      //ERROR("no emulation handler for abort(0x%x at 0x%x)", far, vcpu_readpc(cpu()->vcpu));
+        ERROR("no emulation handler for abort(0x%x at 0x%x)", far, vcpu_readpc(cpu()->vcpu));
     }
 }
 
