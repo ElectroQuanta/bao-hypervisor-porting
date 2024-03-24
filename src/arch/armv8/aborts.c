@@ -47,7 +47,7 @@ void aborts_data_lower(unsigned long iss, unsigned long far, unsigned long il, u
             ERROR("data abort emulation failed (0x%x)", far);
         }
     } else {
-        ERROR("no emulation handler for abort(0x%x at 0x%x)", far, vcpu_readpc(cpu()->vcpu));
+      //ERROR("no emulation handler for abort(0x%x at 0x%x)", far, vcpu_readpc(cpu()->vcpu));
     }
 }
 
