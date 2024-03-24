@@ -22,10 +22,14 @@ struct arch_platform {
     } irqc;
 
     struct {
-        paddr_t base;       // Base address of the IOMMU mmapped IF
-        unsigned mode;      // Overall IOMMU mode (Off, Bypass, DDT-lvl)
-        irqid_t fq_irq_id;  // Fault Queue IRQ ID (wired)
+        paddr_t base;      // Base address of the IOMMU mmapped IF
+        unsigned mode;     // Overall IOMMU mode (Off, Bypass, DDT-lvl)
+        irqid_t fq_irq_id; // Fault Queue IRQ ID (wired)
     } iommu;
+
+    struct {
+        paddr_t base; // Base address of the ACLINT supervisor software interrupts
+    } aclint_sswi;
 };
 
 #endif /* __ARCH_PLATFORM_H__ */

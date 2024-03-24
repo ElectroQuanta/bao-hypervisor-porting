@@ -8,13 +8,15 @@
 #include <arch/psci.h>
 #include <arch/sysregs.h>
 
-void cpu_arch_profile_init(cpuid_t cpuid, paddr_t load_addr) {
+void cpu_arch_profile_init(cpuid_t cpuid, paddr_t load_addr)
+{
     if (cpuid == CPU_MASTER) {
-        /* power on necessary, but still sleeping, secondary cpu cores
-         * Assumes CPU zero is doing this */
-        for (size_t cpu_core_id = 0; cpu_core_id < platform.cpu_num;
-             cpu_core_id++) {
-            if(cpu_core_id == cpuid) continue;
+        /* power on necessary, but still sleeping, secondary cpu cores Assumes CPU zero is doing
+         * this */
+        for (size_t cpu_core_id = 0; cpu_core_id < platform.cpu_num; cpu_core_id++) {
+            if (cpu_core_id == cpuid) {
+                continue;
+            }
             unsigned long mpidr = cpu_id_to_mpidr(cpu_core_id);
             // TODO: pass config addr in contextid (x0 register)
             int32_t result = psci_cpu_on(mpidr, load_addr, 0);
@@ -25,6 +27,7 @@ void cpu_arch_profile_init(cpuid_t cpuid, paddr_t load_addr) {
     }
 }
 
+<<<<<<< HEAD
 void cpu_arch_profile_idle() {
 #ifdef PLATFORM_IMX8MN_DDR3L_EVK
     /**
@@ -36,6 +39,11 @@ void cpu_arch_profile_idle() {
 #else
     int64_t err = psci_power_down(PSCI_WAKEUP_IDLE);
 #endif
+=======
+void cpu_arch_profile_idle()
+{
+    int64_t err = psci_power_down(PSCI_WAKEUP_IDLE);
+>>>>>>> 1ac931a29d76b3669b9dc1e3d3427b16fe426015
     if (err) {
         switch (err) {
             case PSCI_E_NOT_SUPPORTED:
@@ -50,7 +58,7 @@ void cpu_arch_profile_idle() {
     }
 
     /**
-     * Power down was sucessful but did not jump to requested entry
-     * point. Just return to the architectural
+     * Power down was sucessful but did not jump to requested entry point. Just return to the
+     * architectural
      */
 }

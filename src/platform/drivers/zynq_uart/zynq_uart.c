@@ -25,8 +25,7 @@ bool uart_init(volatile struct Uart_Zynq_hw* uart)
     uart->isr_en = UART_ISR_EN_RTRIG;
 
     /** Enable (closer to Reset) the Controller */
-    uart->control |=
-        (UART_CONTROL_STPBRK | UART_CONTROL_RXRES | UART_CONTROL_TXRES);
+    uart->control |= (UART_CONTROL_STPBRK | UART_CONTROL_RXRES | UART_CONTROL_TXRES);
 
     return true;
 }
@@ -35,8 +34,8 @@ void uart_enable(volatile struct Uart_Zynq_hw* uart)
 {
     uint32_t ctrl_reg = uart->control;
 
-    ctrl_reg = (UART_CONTROL_STPBRK | UART_CONTROL_TXEN | UART_CONTROL_RXEN |
-                UART_CONTROL_RXRES | UART_CONTROL_TXRES);
+    ctrl_reg = (UART_CONTROL_STPBRK | UART_CONTROL_TXEN | UART_CONTROL_RXEN | UART_CONTROL_RXRES |
+        UART_CONTROL_TXRES);
 
     uart->control = ctrl_reg;
 }
@@ -92,9 +91,9 @@ uint32_t uart_getc(volatile struct Uart_Zynq_hw* uart)
 
     // Chose one of the following: (Trigger Level or Not Empty)
     /* Wait until RxFIFO is filled up to the trigger level */
-    while (!uart->ch_status & UART_CH_STATUS_RTRIG);
+    while (!uart->ch_status & UART_CH_STATUS_RTRIG) { }
     /* Wait until RxFIFO is not empty */
-    // while(!uart->ch_status & UART_CH_STATUS_REMPTY);
+    // while(!uart->ch_status & UART_CH_STATUS_REMPTY) { }
 
     data = uart->tx_rx_fifo;
 
@@ -104,7 +103,7 @@ uint32_t uart_getc(volatile struct Uart_Zynq_hw* uart)
 void uart_putc(volatile struct Uart_Zynq_hw* uart, int8_t c)
 {
     /* Wait until txFIFO is not full */
-    while (uart->ch_status & UART_CH_STATUS_TFUL);
+    while (uart->ch_status & UART_CH_STATUS_TFUL) { }
 
     uart->tx_rx_fifo = c;
 }

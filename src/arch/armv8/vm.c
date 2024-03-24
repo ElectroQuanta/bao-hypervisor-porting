@@ -19,10 +19,9 @@ void vm_arch_init(struct vm* vm, const struct vm_config* config)
 
 struct vcpu* vm_get_vcpu_by_mpidr(struct vm* vm, unsigned long mpidr)
 {
-    for (cpuid_t vcpuid = 0; vcpuid < vm->cpu_num; vcpuid++)
-    {
-        struct vcpu *vcpu = vm_get_vcpu(vm, vcpuid);
-        if ((vcpu->arch.vmpidr & MPIDR_AFF_MSK) == (mpidr & MPIDR_AFF_MSK))  {
+    for (cpuid_t vcpuid = 0; vcpuid < vm->cpu_num; vcpuid++) {
+        struct vcpu* vcpu = vm_get_vcpu(vm, vcpuid);
+        if ((vcpu->arch.vmpidr & MPIDR_AFF_MSK) == (mpidr & MPIDR_AFF_MSK)) {
             return vcpu;
         }
     }
@@ -33,7 +32,8 @@ struct vcpu* vm_get_vcpu_by_mpidr(struct vm* vm, unsigned long mpidr)
 static unsigned long vm_cpuid_to_mpidr(struct vm* vm, vcpuid_t cpuid)
 {
     if (cpuid > vm->cpu_num) {
-        return ~(~MPIDR_RES1 & MPIDR_RES0_MSK); //return an invlid mpidr by inverting res bits
+        return ~(~MPIDR_RES1 & MPIDR_RES0_MSK); // return an invlid mpidr by
+                                                // inverting res bits
     }
 
     unsigned long mpidr = cpuid | MPIDR_RES1;
@@ -68,20 +68,20 @@ void vcpu_arch_reset(struct vcpu* vcpu, vaddr_t entry)
     sysreg_cntvoff_el2_write(0);
 
     /**
-     *  See ARMv8-A ARM section D1.9.1 for registers that must be in a known
-     * state at reset.
+     *  See ARMv8-A ARM section D1.9.1 for registers that must be in a known state at reset.
      */
     sysreg_sctlr_el1_write(SCTLR_RES1);
     sysreg_cntkctl_el1_write(0);
     sysreg_pmcr_el0_write(0);
 
     /**
-     *  TODO: ARMv8-A ARM mentions another implementation optional registers
-     * that reset to a known value.
+     *  TODO: ARMv8-A ARM mentions another implementation optional registers that reset to a known
+     * value.
      */
 }
 
-static inline bool vcpu_psci_state_on(struct vcpu* vcpu) {
+static inline bool vcpu_psci_state_on(struct vcpu* vcpu)
+{
     return vcpu->arch.psci_ctx.state == ON;
 }
 
@@ -91,5 +91,5 @@ void vcpu_arch_run(struct vcpu* vcpu)
         vcpu_arch_entry();
     } else {
         cpu_idle();
-    }   
+    }
 }

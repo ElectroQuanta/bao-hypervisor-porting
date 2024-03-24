@@ -1,5 +1,5 @@
 /**
- * SPDX-License-Identifier: Apache-2.0 
+ * SPDX-License-Identifier: Apache-2.0
  * Copyright (c) Bao Project and Contributors. All rights reserved.
  */
 
@@ -14,11 +14,15 @@
 #include <vm.h>
 #include <arch/csrs.h>
 #include <fences.h>
+#include <arch/aclint.h>
 
 void interrupts_arch_init()
 {
-    if (cpu()->id  == CPU_MASTER) {  
+    if (cpu_is_master()) {
         irqc_init();
+        if (ACLINT_PRESENT()) {
+            aclint_init();
+        }
     }
 
     /* Wait for master hart to finish irqc initialization */
@@ -34,7 +38,11 @@ void interrupts_arch_init()
 
 void interrupts_arch_ipi_send(cpuid_t target_cpu, irqid_t ipi_id)
 {
-    sbi_send_ipi(1ULL << target_cpu, 0);
+    if (ACLINT_PRESENT()) {
+        aclint_send_ipi(target_cpu);
+    } else {
+        sbi_send_ipi(1ULL << target_cpu, 0);
+    }
 }
 
 void interrupts_arch_cpu_enable(bool en)
@@ -49,15 +57,17 @@ void interrupts_arch_cpu_enable(bool en)
 void interrupts_arch_enable(irqid_t int_id, bool en)
 {
     if (int_id == SOFT_INT_ID) {
-        if (en)
+        if (en) {
             CSRS(sie, SIE_SSIE);
-        else
+        } else {
             CSRC(sie, SIE_SSIE);
+        }
     } else if (int_id == TIMR_INT_ID) {
-        if (en)
+        if (en) {
             CSRS(sie, SIE_STIE);
-        else
+        } else {
             CSRC(sie, SIE_STIE);
+        }
     } else {
         irqc_config_irq(int_id, en);
     }
@@ -75,13 +85,11 @@ void interrupts_arch_handle()
         case SCAUSE_CODE_STI:
             interrupts_handle(TIMR_INT_ID);
             /**
-             * Clearing the timer pending bit actually has no effect. We could
-             * re-program the timer to "infinity" but we don't know if the
-             * handler itself re-programed the timer with a new event.
-             * Therefore, at this point, we must trust the handler either
-             * correctly re-programms the timer or disables the interrupt so the
-             * cpu is not starved by continously triggering the timer interrupt
-             * (spoiler alert, it does!)
+             * Clearing the timer pending bit actually has no effect. We could re-program the timer
+             * to "infinity" but we don't know if the handler itself re-programed the timer with a
+             * new event. Therefore, at this point, we must trust the handler either correctly
+             * re-programms the timer or disables the interrupt so the cpu is not starved by
+             * continously triggering the timer interrupt (spoiler alert, it does!)
              */
             break;
         case SCAUSE_CODE_SEI:
@@ -123,7 +131,7 @@ inline bool interrupts_arch_conflict(bitmap_t* interrupt_bitmap, irqid_t int_id)
     return bitmap_get(interrupt_bitmap, int_id);
 }
 
-void interrupts_arch_vm_assign(struct vm *vm, irqid_t id)
+void interrupts_arch_vm_assign(struct vm* vm, irqid_t id)
 {
     virqc_set_hw(vm, id);
 }

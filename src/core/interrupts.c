@@ -40,8 +40,8 @@ inline void interrupts_init()
 {
     interrupts_arch_init();
 
-    if (cpu()->id == CPU_MASTER) {
-        if(!interrupts_reserve(IPI_CPU_MSG, cpu_msg_handler)) {
+    if (cpu_is_master()) {
+        if (!interrupts_reserve(IPI_CPU_MSG, cpu_msg_handler)) {
             ERROR("Failed to reserve IPI_CPU_MSG interrupt");
         }
     }
@@ -55,9 +55,9 @@ static inline bool interrupt_assigned_to_hyp(irqid_t int_id)
 }
 
 /**
- * @brief For a given interrupt intp_id, return if this interrupt
- *        is already reserved by VMM or any VM
- * 
+ * @brief For a given interrupt intp_id, return if this interrupt is already reserved by VMM or any
+ *        VM
+ *
  * @param int_id interrupt ID
  * @return true if interrupt is reserved
  * @return false if interrupt is NOT reserved
@@ -84,7 +84,7 @@ enum irq_res interrupts_handle(irqid_t int_id)
     }
 }
 
-bool interrupts_vm_assign(struct vm *vm, irqid_t id)
+bool interrupts_vm_assign(struct vm* vm, irqid_t id)
 {
     bool ret = false;
 
