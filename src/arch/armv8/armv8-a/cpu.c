@@ -27,7 +27,6 @@ void cpu_arch_profile_init(cpuid_t cpuid, paddr_t load_addr)
     }
 }
 
-<<<<<<< HEAD
 void cpu_arch_profile_idle() {
 #ifdef PLATFORM_IMX8MN_DDR3L_EVK
     /**
@@ -39,11 +38,9 @@ void cpu_arch_profile_idle() {
 #else
     int64_t err = psci_power_down(PSCI_WAKEUP_IDLE);
 #endif
-=======
 void cpu_arch_profile_idle()
 {
     int64_t err = psci_power_down(PSCI_WAKEUP_IDLE);
->>>>>>> 1ac931a29d76b3669b9dc1e3d3427b16fe426015
     if (err) {
         switch (err) {
             case PSCI_E_NOT_SUPPORTED:
