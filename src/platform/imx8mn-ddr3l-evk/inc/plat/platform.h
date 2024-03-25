@@ -16,9 +16,9 @@
 #define GIC_PPI_VAL(x) ADD_NRS(x, 16)
 #define GIC_SPI_VAL(x) ADD_NRS(x, 32)
 
-#ifndef PLATFORM_IMX8MN_DDR3L_EVK
-#define PLATFORM_IMX8MN_DDR3L_EVK
-#endif
+// #ifndef PLATFORM_IMX8MN_DDR3L_EVK
+// #define PLATFORM_IMX8MN_DDR3L_EVK
+// #endif
 
 
 #include <drivers/imx_uart.h>
