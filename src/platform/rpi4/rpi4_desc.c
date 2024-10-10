@@ -25,7 +25,7 @@ struct platform platform = {
     },
 
     .console = {
-        .base = 0xfe215000,
+        .base = 0xfe201000, /**< Page aligned address; the offset is added on platform.h */
     },
 
     .arch = {
