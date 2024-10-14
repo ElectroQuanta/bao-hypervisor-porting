@@ -19,11 +19,18 @@ void init(cpuid_t cpu_id, paddr_t load_addr)
      * These initializations must be executed first and in fixed order.
      */
 
-    cpu_init(cpu_id, load_addr);
+  cpu_init(cpu_id, load_addr);
     mem_init(load_addr);
 
     /* -------------------------------------------------------------- */
 
+// DEBUG point
+#define GDB_DEBUG 1
+#if GDB_DEBUG == 1
+  volatile int a = 1;
+  while (a == 1)
+    ;
+#endif
     console_init();
 
     if (cpu_is_master()) {

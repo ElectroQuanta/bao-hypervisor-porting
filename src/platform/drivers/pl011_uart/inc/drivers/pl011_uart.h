@@ -6,6 +6,7 @@
 #ifndef __PL011_UART_H_
 #define __PL011_UART_H_
 
+#include <cstdint>
 #include <stdint.h>
 
 
@@ -186,6 +187,7 @@
 /* UART (PL011) register structure */
 
 struct Pl011_Uart_hw {
+  const uint8_t offset[PL011_PAGE_OFFSET];
     volatile uint32_t data;               // UART Data Register
     volatile uint32_t status_error;       // UART Receive Status Register/Error Clear
                                           // Register
@@ -216,6 +218,18 @@ void uart_enable(volatile struct Pl011_Uart_hw* ptr_uart);
 void uart_set_baud_rate(volatile struct Pl011_Uart_hw* ptr_uart, uint32_t baud_rate);
 void uart_init(volatile struct Pl011_Uart_hw* ptr_uart);
 uint32_t uart_getc(volatile struct Pl011_Uart_hw* ptr_uart);
-void uart_putc(volatile struct Pl011_Uart_hw* ptr_uart, int8_t c);
+void uart_putc(volatile struct Pl011_Uart_hw *ptr_uart, int8_t c);
+
+
+#ifndef UART_CLK_MSG2_SENT
+#define UART_CLK_MSG2_SENT
+#define MY_STR(x) #x
+#define MY_STR_VAL(x) MY_STR(x)
+#pragma message "File: " __FILE__ ": UART_CLK (Hz): " MY_STR_VAL(UART_CLK)
+#pragma message "File: " __FILE__ ": PL011_PAGE_OFFSET (Hz): " MY_STR_VAL(PL011_PAGE_OFFSET)
+//#pragma message "File: " __FILE__ ": UART_CLK (Hz): "
+#endif
+
+
 
 #endif /* __PL011_UART_H_ */

@@ -17,6 +17,7 @@
 static volatile bao_uart_t* uart;
 static bool console_ready = false;
 static spinlock_t console_lock = SPINLOCK_INITVAL;
+//void uart_putc(volatile bao_uart_t *, const char );
 
 void console_init()
 {
