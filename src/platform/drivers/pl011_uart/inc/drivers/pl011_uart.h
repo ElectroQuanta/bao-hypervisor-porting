@@ -6,7 +6,6 @@
 #ifndef __PL011_UART_H_
 #define __PL011_UART_H_
 
-#include <cstdint>
 #include <stdint.h>
 
 
@@ -38,7 +37,6 @@
 #ifndef UART_CLK
 #define UART_CLK                19200000
 #endif
-#define UART_BAUD_RATE           115200
 #define UART_BAUD_RATE          115200
 
 /* UART Data Register */
