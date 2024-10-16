@@ -161,8 +161,23 @@ abort_handler_t abort_handlers[64] = {
     [ESR_EC_HVC64] = hvc_handler,
 };
 
-void aborts_sync_handler()
-{
+void aborts_sync_handler() {
+
+
+    // DEBUG point
+#ifndef GDB_DEBUG
+#define GDB_DEBUG 0
+//#define STR(x) #x
+//#define XSTR(x) STR(x)    
+#endif
+#if GDB_DEBUG == 1
+#pragma message "GDB Debug Breakpoint: " __FILE__ ": " XSTR(__LINE__)   
+  volatile int a = 1;
+  while (a == 1)
+    ;
+#endif
+
+
     unsigned long esr = sysreg_esr_el2_read();
     unsigned long far = sysreg_far_el2_read();
     unsigned long hpfar = sysreg_hpfar_el2_read();

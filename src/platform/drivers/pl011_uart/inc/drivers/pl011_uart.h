@@ -219,14 +219,14 @@ uint32_t uart_getc(volatile struct Pl011_Uart_hw* ptr_uart);
 void uart_putc(volatile struct Pl011_Uart_hw *ptr_uart, int8_t c);
 
 
-#ifndef UART_CLK_MSG2_SENT
-#define UART_CLK_MSG2_SENT
-#define MY_STR(x) #x
-#define MY_STR_VAL(x) MY_STR(x)
-#pragma message "File: " __FILE__ ": UART_CLK (Hz): " MY_STR_VAL(UART_CLK)
-#pragma message "File: " __FILE__ ": PL011_PAGE_OFFSET (Hz): " MY_STR_VAL(PL011_PAGE_OFFSET)
-//#pragma message "File: " __FILE__ ": UART_CLK (Hz): "
-#endif
+// #ifndef UART_CLK_MSG2_SENT
+// #define UART_CLK_MSG2_SENT
+// #define MY_STR(x) #x
+// #define MY_STR_VAL(x) MY_STR(x)
+// #pragma message "File: " __FILE__ ": UART_CLK (Hz): " MY_STR_VAL(UART_CLK)
+// #pragma message "File: " __FILE__ ": PL011_PAGE_OFFSET (Hz): " MY_STR_VAL(PL011_PAGE_OFFSET)
+// //#pragma message "File: " __FILE__ ": UART_CLK (Hz): "
+// #endif
 
 
 
