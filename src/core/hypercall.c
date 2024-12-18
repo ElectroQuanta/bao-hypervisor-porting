@@ -7,6 +7,7 @@
 #include <cpu.h>
 #include <vm.h>
 #include <ipc.h>
+#include <platform.h>
 
 long int hypercall(unsigned long id)
 {
@@ -20,6 +21,8 @@ long int hypercall(unsigned long id)
         case HC_IPC:
             ret = ipc_hypercall(ipc_id, arg1, arg2);
             break;
+        case HC_RPI_FIRMWARE:
+            ret = rpi_mailbox_hypercall(ipc_id, arg1, arg2);
         default:
             WARNING("Unknown hypercall id %d", id);
     }

@@ -22,4 +22,7 @@
 //#endif
 #include <drivers/pl011_uart.h>
 
+long rpi_mailbox_hypercall(unsigned long arg0, unsigned long arg1, unsigned long arg2);
+void plat_rpi_init(void);
+
 #endif
