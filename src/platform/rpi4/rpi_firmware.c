@@ -7,7 +7,7 @@
 #include <interrupts.h>
 #include <vm.h>
 
-#define RPI_MAILBOX_IRQ_ID 0xdeadbeef
+#define RPI_MAILBOX_IRQ_ID 65
 
 #define RPI_HYP_ARG_START  1
 #define RPI_HYP_ARG_END    2
