@@ -72,11 +72,14 @@ enum irq_res interrupts_handle(irqid_t int_id)
     if (vm_has_interrupt(cpu()->vcpu->vm, int_id)) {
         vcpu_inject_hw_irq(cpu()->vcpu, int_id);
 
+		/* if(int_id != 27) // timer */
+		/*   INFO("func %s, irq_id: %d (FORWARD_TO_VM)", __FUNCTION__, (int)int_id); */
         return FORWARD_TO_VM;
 
     } else if (interrupt_assigned_to_hyp(int_id)) {
         interrupt_handlers[int_id](int_id);
 
+		/* INFO("func %s, irq_id: %d (HANDLED_BY_HYP)", __FUNCTION__, (int)int_id); */
         return HANDLED_BY_HYP;
 
     } else {
@@ -104,6 +107,8 @@ bool interrupts_vm_assign(struct vm* vm, irqid_t id)
 bool interrupts_reserve(irqid_t int_id, irq_handler_t handler)
 {
     bool ret = false;
+
+  /* INFO("func %s, irq_id: %d", __FUNCTION__, (int)int_id); */
 
     spin_lock(&irq_reserve_lock);
     if ((int_id < MAX_INTERRUPTS) && !interrupt_assigned(int_id)) {

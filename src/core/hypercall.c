@@ -11,11 +11,15 @@
 
 long int hypercall(unsigned long id)
 {
-    long int ret = -HC_E_INVAL_ID;
+  long int ret = -HC_E_INVAL_ID;
 
     unsigned long ipc_id = vcpu_readreg(cpu()->vcpu, HYPCALL_ARG_REG(0));
     unsigned long arg1 = vcpu_readreg(cpu()->vcpu, HYPCALL_ARG_REG(1));
     unsigned long arg2 = vcpu_readreg(cpu()->vcpu, HYPCALL_ARG_REG(2));
+
+    /* Log hypercall details for debugging */
+    /* INFO("func %s: id = %lu, ipc_id = %lu, arg1 = %lu, arg2 = %lu", */
+    /*      __func__, id, ipc_id, arg1, arg2); */
 
     switch (id) {
         case HC_IPC:
@@ -23,8 +27,9 @@ long int hypercall(unsigned long id)
             break;
         case HC_RPI_FIRMWARE:
             ret = rpi_mailbox_hypercall(ipc_id, arg1, arg2);
+            break;
         default:
-            WARNING("Unknown hypercall id %d", id);
+            WARNING("Unknown hypercall id %lu", id);
     }
 
     return ret;

@@ -32,7 +32,9 @@ void init(cpuid_t cpu_id, paddr_t load_addr)
 
     interrupts_init();
 
-    plat_rpi_init();
+    if (cpu_is_master()) {
+		plat_rpi_init();
+    }
 
     vmm_init();
 
